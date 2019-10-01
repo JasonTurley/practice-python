@@ -1,18 +1,30 @@
-# My implementations of the map, filter, and reduce functions.
+# My implementations of the map, filter, and reduce functiontions.
 
 ###############################################################################
 # Custom implementations                                                      #
 ###############################################################################
 
-def my_map(func, items : list) -> list:
+def my_map(function, items):
     """
-    Creates a new list by applies a function `func` to all `items` in a list,
-    and returns a new list.
+    Creates and returns the list created by applying the `function` to all
+    `items` in the given list.
     """
     result = []
 
     for it in items:
-        result.append(func(it))
+        result.append(function(it))
+
+    return result
+
+def my_filter(condition, items):
+    """
+    Creates and returns a list of items for which the `condition` is true.
+    """
+    result = []
+
+    for it in items:
+        if condition(it):
+            result.append(it)
 
     return result
 
@@ -20,24 +32,29 @@ def my_map(func, items : list) -> list:
 # Test Wrappers                                                               #
 ###############################################################################
 
-def test_my_map(func, items):
-    result = my_map(func, items)
-    expected = list(map(func, items))
+def test_my_map(function, items):
+    result = my_map(function, items)
+    expected = list(map(function, items))
 
-    assert(result == expected)
-
-###############################################################################
-# Functions                                                                   #
-###############################################################################
-def plus2(x : int) -> int:
-    return x + 2
+    assert result == expected
 
 
+def test_my_filter(condition, items):
+    result = my_filter(condition, items)
+    expected = list(filter(condition, items))
+
+    assert result == expected
+
+
+# Add test cases here
 if __name__ == "__main__":
-    # Add test cases here
     nums = [1, 2, 3, 4, 5, 6]
+    nums2 = [88, -2, 0, -33, 201, -71]
 
-    test_my_map(plus2, nums)
+    test_my_map(lambda x: x + 2, nums)
     test_my_map(lambda x: x**2, nums)
+
+    test_my_filter(lambda n: n < 0, nums)
+    test_my_filter(lambda n: n < 0, nums2)
 
     print("Passed all test cases.")
